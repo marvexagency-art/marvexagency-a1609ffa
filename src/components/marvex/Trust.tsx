@@ -77,9 +77,19 @@ export function Trust() {
               <blockquote className="mt-3 text-sm text-foreground/90">
                 &ldquo;{t.text}&rdquo;
               </blockquote>
-              <figcaption className="mt-5">
-                <p className="text-sm font-semibold">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.role}</p>
+              <figcaption className="mt-5 flex items-center gap-3">
+                <img
+                  src={t.avatar}
+                  alt={t.name}
+                  loading="lazy"
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-full object-cover ring-2 ring-accent/30"
+                />
+                <div>
+                  <p className="text-sm font-semibold">{t.name}</p>
+                  <p className="text-xs text-muted-foreground">{t.role}</p>
+                </div>
               </figcaption>
             </figure>
           ))}
