@@ -37,7 +37,7 @@ export function Benefits() {
             >
               <div className="flex items-center justify-between">
                 <div className="bg-gradient-card grid h-10 w-10 place-items-center rounded-xl border border-border">
-                  <b.icon className="h-4.5 w-4.5 text-accent" />
+                  <b.icon className="h-4 w-4 text-accent" />
                 </div>
                 <span className="text-sm font-semibold text-gradient">{b.m}</span>
               </div>
