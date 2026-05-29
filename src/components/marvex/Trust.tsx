@@ -1,4 +1,8 @@
 import { Star, TrendingUp, Quote } from "lucide-react";
+import avatarJames from "@/assets/avatar-james.jpg";
+import avatarSophia from "@/assets/avatar-sophia.jpg";
+import avatarDaniel from "@/assets/avatar-daniel.jpg";
+import avatarMia from "@/assets/avatar-mia.jpg";
 
 const metrics = [
   { v: "+247%", l: "More Leads" },
@@ -11,18 +15,22 @@ const testimonials = [
   {
     name: "James W.", role: "Owner • Plumbing Co.",
     text: "Marvex helped us stop wasting money on ads and finally created a system that consistently brings booked jobs.",
+    avatar: avatarJames,
   },
   {
     name: "Sophia R.", role: "Founder • HVAC Pros",
     text: "Our calendar went from quiet weeks to fully booked in under 60 days. The follow-up automation is unreal.",
+    avatar: avatarSophia,
   },
   {
     name: "Daniel K.", role: "Director • Roofing Group",
     text: "Cost per lead dropped by half and our team finally has qualified jobs to quote every single day.",
+    avatar: avatarDaniel,
   },
   {
     name: "Mia L.", role: "Manager • Dental Clinic",
     text: "Patients now book themselves through the AI system. We freed up the front desk and doubled new visits.",
+    avatar: avatarMia,
   },
 ];
 
