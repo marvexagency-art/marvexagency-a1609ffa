@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Marvex Agency" },
+      { name: "description", content: "Marvex Agency is an AI-powered marketing website designed to generate leads and booked appointments for local businesses." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Marvex Agency" },
+      { property: "og:description", content: "Marvex Agency is an AI-powered marketing website designed to generate leads and booked appointments for local businesses." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Marvex Agency" },
+      { name: "twitter:description", content: "Marvex Agency is an AI-powered marketing website designed to generate leads and booked appointments for local businesses." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/GbwBl1usT7R9P8SstsDUvpQHLRg1/social-images/social-1780182241726-Marvex_Agency.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/GbwBl1usT7R9P8SstsDUvpQHLRg1/social-images/social-1780182241726-Marvex_Agency.webp" },
     ],
     links: [
       {
