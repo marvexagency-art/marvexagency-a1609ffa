@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { z } from "zod";
 import { Calendar, MessageCircle, Mail, Phone, Send, CheckCircle2 } from "lucide-react";
 
@@ -121,15 +121,16 @@ export function Contact() {
 function Field({
   name, label, type = "text", textarea, error,
 }: { name: string; label: string; type?: string; textarea?: boolean; error?: string }) {
+  const id = React.useId();
   const cls =
     "w-full rounded-xl border border-border bg-secondary/50 px-4 py-3 text-sm placeholder:text-muted-foreground/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30";
   return (
-    <label className="block">
+    <label className="block" htmlFor={id}>
       <span className="mb-1.5 block text-xs font-medium text-muted-foreground">{label}</span>
       {textarea ? (
-        <textarea name={name} rows={4} className={cls} placeholder="Briefly describe your goals…" />
+        <textarea id={id} name={name} rows={4} className={cls} placeholder="Briefly describe your goals…" />
       ) : (
-        <input name={name} type={type} className={cls} placeholder={label} />
+        <input id={id} name={name} type={type} className={cls} placeholder={label} />
       )}
       {error && <span className="mt-1 block text-xs text-destructive">{error}</span>}
     </label>

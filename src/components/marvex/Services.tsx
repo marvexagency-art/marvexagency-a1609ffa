@@ -80,8 +80,9 @@ function ServiceCard({
       <a
         href="#contact"
         className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-foreground/80 transition-colors hover:text-accent"
+        aria-label={`Learn more about ${title}`}
       >
-        Learn more <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+        Learn more about {title} <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
       </a>
     </div>
   );
