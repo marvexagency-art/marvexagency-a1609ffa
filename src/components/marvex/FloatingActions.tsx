@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { MessageCircle, X, Sparkles, Calendar, Send } from "lucide-react";
+import { MessageCircle, X, Sparkles, Calendar, Send, Bot } from "lucide-react";
 
 type Msg = { from: "bot" | "user"; text: string };
 
