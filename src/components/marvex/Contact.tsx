@@ -64,7 +64,7 @@ export function Contact() {
                 <Calendar className="h-4 w-4" /> Book Free Strategy Call
               </a>
               <a
-                href="https://wa.me/19082671457"
+                href="https://wa.me/2348165010990"
                 target="_blank" rel="noopener noreferrer"
                 className="glass inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-colors hover:bg-secondary"
               >

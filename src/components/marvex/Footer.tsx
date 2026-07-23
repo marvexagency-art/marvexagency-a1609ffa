@@ -20,7 +20,7 @@ export function Footer() {
               {[
                 { href: "https://www.facebook.com/share/18iGZchMPC/", icon: Facebook, label: "Facebook" },
                 { href: "https://www.instagram.com/mar.vexagen_cy/", icon: Instagram, label: "Instagram" },
-                { href: "https://wa.me/19082671457", icon: MessageCircle, label: "WhatsApp" },
+                { href: "https://wa.me/2348165010990", icon: MessageCircle, label: "WhatsApp" },
               ].map((s) => (
                 <a
                   key={s.label}

@@ -39,7 +39,7 @@ export function FloatingActions() {
           </div>
 
           <a
-            href="https://wa.me/19082671457"
+            href="https://wa.me/2348165010990"
             target="_blank" rel="noopener noreferrer"
             className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-2.5 text-sm font-semibold text-primary-foreground"
           >
@@ -58,7 +58,7 @@ export function FloatingActions() {
           <Sparkles className="h-5 w-5 text-accent" />
         </button>
         <a
-          href="https://wa.me/19082671457"
+          href="https://wa.me/2348165010990"
           target="_blank" rel="noopener noreferrer"
           aria-label="WhatsApp"
           className="grid h-14 w-14 place-items-center rounded-full bg-gradient-brand shadow-glow transition-transform hover:scale-105"
@@ -82,7 +82,7 @@ export function FloatingActions() {
             <Calendar className="h-4 w-4" /> Book Appointment
           </a>
           <a
-            href="https://wa.me/19082671457"
+            href="https://wa.me/2348165010990"
             target="_blank" rel="noopener noreferrer"
             className="flex items-center justify-center gap-1.5 rounded-xl border border-border px-4 py-3 text-xs font-semibold"
           >
