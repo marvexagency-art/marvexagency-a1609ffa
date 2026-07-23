@@ -130,25 +130,22 @@ export function FloatingActions() {
         </div>
       )}
 
-      {/* Floating WhatsApp + chat */}
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3">
+      {/* Single floating chat button */}
+      <div className="fixed bottom-4 right-4 z-50">
         <button
           onClick={() => setChatOpen((v) => !v)}
-          aria-label="Open AI chat"
-          className="glass-strong grid h-12 w-12 place-items-center rounded-full transition-transform hover:scale-105"
+          aria-label="Chat with Marvex AI"
+          className="relative grid h-14 w-14 place-items-center rounded-full bg-gradient-brand shadow-glow transition-transform hover:scale-105"
         >
-          <Sparkles className="h-5 w-5 text-accent" />
+          {chatOpen ? (
+            <X className="h-6 w-6 text-primary-foreground" />
+          ) : (
+            <MessageCircle className="h-6 w-6 text-primary-foreground" />
+          )}
+          {!chatOpen && (
+            <span className="absolute inset-0 rounded-full bg-accent/40 animate-ping" />
+          )}
         </button>
-        <a
-          href="https://wa.me/2348165010990"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="WhatsApp 0816 501 0990"
-          className="grid h-14 w-14 place-items-center rounded-full bg-gradient-brand shadow-glow transition-transform hover:scale-105"
-        >
-          <MessageCircle className="h-6 w-6 text-primary-foreground" />
-          <span className="absolute h-14 w-14 rounded-full bg-accent/50 animate-ping" />
-        </a>
       </div>
 
       {/* Sticky mobile CTA */}
