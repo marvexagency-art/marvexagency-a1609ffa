@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { MessageCircle, X, Sparkles, Calendar, Send } from "lucide-react";
+import { MessageCircle, X, Sparkles, Calendar, Send, Bot } from "lucide-react";
 
 type Msg = { from: "bot" | "user"; text: string };
 
@@ -140,7 +140,7 @@ export function FloatingActions() {
           {chatOpen ? (
             <X className="h-6 w-6 text-primary-foreground" />
           ) : (
-            <MessageCircle className="h-6 w-6 text-primary-foreground" />
+            <Bot className="h-7 w-7 text-primary-foreground" />
           )}
           {!chatOpen && (
             <span className="absolute inset-0 rounded-full bg-accent/40 animate-ping" />
