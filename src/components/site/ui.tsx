@@ -59,7 +59,7 @@ export function PrimaryLink({
 }) {
   return (
     <Link
-      to={to}
+      to={to as never}
       className={`group inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.03] ${className}`}
     >
       {children}
@@ -79,7 +79,7 @@ export function GhostLink({
 }) {
   return (
     <Link
-      to={to}
+      to={to as never}
       className={`glass inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary ${className}`}
     >
       {children}
@@ -240,7 +240,7 @@ export function RelatedLinks({
         {links.map((l) => (
           <Link
             key={l.to + l.label}
-            to={l.to}
+            to={l.to as never}
             className="glass inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             {l.label}
