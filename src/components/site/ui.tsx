@@ -94,7 +94,7 @@ export function Breadcrumbs({ items }: { items: { label: string; to?: string }[]
         {items.map((item, i) => (
           <li key={item.label} className="flex items-center gap-1.5">
             {item.to ? (
-              <Link to={item.to} className="transition-colors hover:text-foreground">
+              <Link to={item.to as never} className="transition-colors hover:text-foreground">
                 {item.label}
               </Link>
             ) : (
