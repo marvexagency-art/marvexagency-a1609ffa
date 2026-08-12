@@ -9,14 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WebsiteDesignRouteImport } from './routes/website-design'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ReputationManagementRouteImport } from './routes/reputation-management'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as GoogleBusinessProfileManagementRouteImport } from './routes/google-business-profile-management'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as AiLeadAutomationRouteImport } from './routes/ai-lead-automation'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IndustriesIndexRouteImport } from './routes/industries.index'
@@ -25,6 +29,11 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
+const WebsiteDesignRoute = WebsiteDesignRouteImport.update({
+  id: '/website-design',
+  path: '/website-design',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -33,6 +42,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReputationManagementRoute = ReputationManagementRouteImport.update({
+  id: '/reputation-management',
+  path: '/reputation-management',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -50,6 +64,12 @@ const HowItWorksRoute = HowItWorksRouteImport.update({
   path: '/how-it-works',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GoogleBusinessProfileManagementRoute =
+  GoogleBusinessProfileManagementRouteImport.update({
+    id: '/google-business-profile-management',
+    path: '/google-business-profile-management',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -63,6 +83,11 @@ const CaseStudiesRoute = CaseStudiesRouteImport.update({
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiLeadAutomationRoute = AiLeadAutomationRouteImport.update({
+  id: '/ai-lead-automation',
+  path: '/ai-lead-automation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -107,14 +132,18 @@ const Char91DotmcpChar93InvokeToolToolRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/ai-lead-automation': typeof AiLeadAutomationRoute
   '/blog': typeof BlogRoute
   '/case-studies': typeof CaseStudiesRoute
   '/contact': typeof ContactRoute
+  '/google-business-profile-management': typeof GoogleBusinessProfileManagementRoute
   '/how-it-works': typeof HowItWorksRoute
   '/industries': typeof IndustriesRouteWithChildren
   '/mcp': typeof McpRoute
+  '/reputation-management': typeof ReputationManagementRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/website-design': typeof WebsiteDesignRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/industries/$slug': typeof IndustriesSlugRoute
@@ -124,13 +153,17 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/ai-lead-automation': typeof AiLeadAutomationRoute
   '/blog': typeof BlogRoute
   '/case-studies': typeof CaseStudiesRoute
   '/contact': typeof ContactRoute
+  '/google-business-profile-management': typeof GoogleBusinessProfileManagementRoute
   '/how-it-works': typeof HowItWorksRoute
   '/mcp': typeof McpRoute
+  '/reputation-management': typeof ReputationManagementRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/website-design': typeof WebsiteDesignRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/industries/$slug': typeof IndustriesSlugRoute
@@ -141,14 +174,18 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/ai-lead-automation': typeof AiLeadAutomationRoute
   '/blog': typeof BlogRoute
   '/case-studies': typeof CaseStudiesRoute
   '/contact': typeof ContactRoute
+  '/google-business-profile-management': typeof GoogleBusinessProfileManagementRoute
   '/how-it-works': typeof HowItWorksRoute
   '/industries': typeof IndustriesRouteWithChildren
   '/mcp': typeof McpRoute
+  '/reputation-management': typeof ReputationManagementRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/website-design': typeof WebsiteDesignRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/industries/$slug': typeof IndustriesSlugRoute
@@ -160,14 +197,18 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/ai-lead-automation'
     | '/blog'
     | '/case-studies'
     | '/contact'
+    | '/google-business-profile-management'
     | '/how-it-works'
     | '/industries'
     | '/mcp'
+    | '/reputation-management'
     | '/services'
     | '/sitemap.xml'
+    | '/website-design'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/industries/$slug'
@@ -177,13 +218,17 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/ai-lead-automation'
     | '/blog'
     | '/case-studies'
     | '/contact'
+    | '/google-business-profile-management'
     | '/how-it-works'
     | '/mcp'
+    | '/reputation-management'
     | '/services'
     | '/sitemap.xml'
+    | '/website-design'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/industries/$slug'
@@ -193,14 +238,18 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/ai-lead-automation'
     | '/blog'
     | '/case-studies'
     | '/contact'
+    | '/google-business-profile-management'
     | '/how-it-works'
     | '/industries'
     | '/mcp'
+    | '/reputation-management'
     | '/services'
     | '/sitemap.xml'
+    | '/website-design'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/industries/$slug'
@@ -211,14 +260,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AiLeadAutomationRoute: typeof AiLeadAutomationRoute
   BlogRoute: typeof BlogRoute
   CaseStudiesRoute: typeof CaseStudiesRoute
   ContactRoute: typeof ContactRoute
+  GoogleBusinessProfileManagementRoute: typeof GoogleBusinessProfileManagementRoute
   HowItWorksRoute: typeof HowItWorksRoute
   IndustriesRoute: typeof IndustriesRouteWithChildren
   McpRoute: typeof McpRoute
+  ReputationManagementRoute: typeof ReputationManagementRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WebsiteDesignRoute: typeof WebsiteDesignRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -226,6 +279,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/website-design': {
+      id: '/website-design'
+      path: '/website-design'
+      fullPath: '/website-design'
+      preLoaderRoute: typeof WebsiteDesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -238,6 +298,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reputation-management': {
+      id: '/reputation-management'
+      path: '/reputation-management'
+      fullPath: '/reputation-management'
+      preLoaderRoute: typeof ReputationManagementRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -261,6 +328,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HowItWorksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/google-business-profile-management': {
+      id: '/google-business-profile-management'
+      path: '/google-business-profile-management'
+      fullPath: '/google-business-profile-management'
+      preLoaderRoute: typeof GoogleBusinessProfileManagementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -280,6 +354,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog'
       preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-lead-automation': {
+      id: '/ai-lead-automation'
+      path: '/ai-lead-automation'
+      fullPath: '/ai-lead-automation'
+      preLoaderRoute: typeof AiLeadAutomationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -351,14 +432,18 @@ const IndustriesRouteWithChildren = IndustriesRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AiLeadAutomationRoute: AiLeadAutomationRoute,
   BlogRoute: BlogRoute,
   CaseStudiesRoute: CaseStudiesRoute,
   ContactRoute: ContactRoute,
+  GoogleBusinessProfileManagementRoute: GoogleBusinessProfileManagementRoute,
   HowItWorksRoute: HowItWorksRoute,
   IndustriesRoute: IndustriesRouteWithChildren,
   McpRoute: McpRoute,
+  ReputationManagementRoute: ReputationManagementRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WebsiteDesignRoute: WebsiteDesignRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
