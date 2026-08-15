@@ -1,23 +1,20 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MessageCircle, X, Sparkles, Calendar, Send, Bot } from "lucide-react";
 
-type Msg = { from: "bot" | "user"; text: string };
+type Msg = { role: "assistant" | "user"; content: string };
 
-const QUESTIONS = [
-  "Hey 👋 I'm Marvex AI. What type of business do you run? (e.g. Plumber, Roofer, Dentist)",
-  "Nice! Roughly how many new customers do you get per month right now?",
-  "What's your #1 goal — more leads, more booked jobs, or better follow-up?",
-  "Last one — what's your name so I can connect you with our team?",
-];
+const GREETING =
+  "Hey 👋 I'm Marvex AI. Quick one — what kind of business are you running?";
 
 export function FloatingActions() {
   const [chatOpen, setChatOpen] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
-  const [step, setStep] = useState(0);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { from: "bot", text: QUESTIONS[0] },
+    { role: "assistant", content: GREETING },
   ]);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setShowSticky(window.scrollY > 600);
@@ -26,34 +23,61 @@ export function FloatingActions() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const finished = step >= QUESTIONS.length;
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages, loading]);
+
+  const answers = useMemo(
+    () => messages.filter((m) => m.role === "user").map((m) => m.content),
+    [messages],
+  );
+  const finished = answers.length >= 3;
 
   const waHref = useMemo(() => {
-    const answers = messages.filter((m) => m.from === "user").map((m) => m.text);
     const summary =
       answers.length > 0
-        ? `Hi Marvex! I'd love to chat.\n\n• Business: ${answers[0] ?? ""}\n• Monthly customers: ${answers[1] ?? ""}\n• Goal: ${answers[2] ?? ""}\n• Name: ${answers[3] ?? ""}`
+        ? `Hi Marvex! I chatted with your AI assistant.\n\n${answers.map((a, i) => `${i + 1}. ${a}`).join("\n")}`
         : "Hi Marvex! I'd love to chat.";
     return `https://wa.me/2348165010990?text=${encodeURIComponent(summary)}`;
-  }, [messages]);
+  }, [answers]);
 
-  const send = () => {
+  const send = async () => {
     const value = input.trim();
-    if (!value || finished) return;
-    const nextStep = step + 1;
-    const next: Msg[] = [...messages, { from: "user", text: value }];
-    if (nextStep < QUESTIONS.length) {
-      next.push({ from: "bot", text: QUESTIONS[nextStep] });
-    } else {
-      next.push({
-        from: "bot",
-        text: "Amazing 🚀 Based on your answers, we can help. Tap below to continue on WhatsApp — 0816 501 0990 — and a strategist will reply within minutes.",
-      });
-    }
+    if (!value || loading) return;
+    const next: Msg[] = [...messages, { role: "user", content: value }];
     setMessages(next);
-    setStep(nextStep);
     setInput("");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: next }),
+      });
+      const data = (await res.json()) as { reply?: string };
+      setMessages([
+        ...next,
+        {
+          role: "assistant",
+          content:
+            data.reply ||
+            "Sorry, I glitched for a second there. Mind saying that again?",
+        },
+      ]);
+    } catch {
+      setMessages([
+        ...next,
+        {
+          role: "assistant",
+          content:
+            "I'm having trouble connecting right now — you can reach us straight on WhatsApp at 0816 501 0990.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   return (
     <>
