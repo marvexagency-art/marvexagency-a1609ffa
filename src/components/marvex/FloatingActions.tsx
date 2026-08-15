@@ -103,54 +103,63 @@ export function FloatingActions() {
             </button>
           </div>
 
-          <div className="mt-3 max-h-72 space-y-2 overflow-y-auto pr-1 text-sm">
+          <div ref={scrollRef} className="mt-3 max-h-72 space-y-2 overflow-y-auto pr-1 text-sm">
             {messages.map((m, i) => (
               <div
                 key={i}
                 className={
-                  m.from === "bot"
-                    ? "rounded-xl rounded-tl-sm bg-secondary/60 p-3"
-                    : "ml-8 rounded-xl rounded-tr-sm bg-gradient-brand p-3 text-primary-foreground"
+                  m.role === "assistant"
+                    ? "whitespace-pre-wrap rounded-xl rounded-tl-sm bg-secondary/60 p-3"
+                    : "ml-8 whitespace-pre-wrap rounded-xl rounded-tr-sm bg-gradient-brand p-3 text-primary-foreground"
                 }
               >
-                {m.text}
+                {m.content}
               </div>
             ))}
+            {loading && (
+              <div className="flex items-center gap-1 rounded-xl rounded-tl-sm bg-secondary/60 p-3">
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-accent [animation-delay:-0.2s]" />
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-accent [animation-delay:-0.1s]" />
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-accent" />
+              </div>
+            )}
           </div>
 
-          {!finished ? (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                send();
-              }}
-              className="mt-3 flex items-center gap-2"
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              void send();
+            }}
+            className="mt-3 flex items-center gap-2"
+          >
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your message…"
+              aria-label="Your message"
+              className="flex-1 rounded-xl border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-accent"
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              aria-label="Send"
+              className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-brand text-primary-foreground disabled:opacity-50"
             >
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your answer…"
-                aria-label="Your answer"
-                className="flex-1 rounded-xl border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-accent"
-              />
-              <button
-                type="submit"
-                aria-label="Send"
-                className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-brand text-primary-foreground"
-              >
-                <Send className="h-4 w-4" />
-              </button>
-            </form>
-          ) : (
+              <Send className="h-4 w-4" />
+            </button>
+          </form>
+
+          {finished && (
             <a
               href={waHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-2.5 text-sm font-semibold text-primary-foreground"
+              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-2.5 text-sm font-semibold text-primary-foreground"
             >
               Continue on WhatsApp · 0816 501 0990
             </a>
           )}
+
         </div>
       )}
 
