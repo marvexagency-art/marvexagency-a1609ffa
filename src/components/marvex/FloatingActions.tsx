@@ -1,23 +1,20 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MessageCircle, X, Sparkles, Calendar, Send, Bot } from "lucide-react";
 
-type Msg = { from: "bot" | "user"; text: string };
+type Msg = { role: "assistant" | "user"; content: string };
 
-const QUESTIONS = [
-  "Hey 👋 I'm Marvex AI. What type of business do you run? (e.g. Plumber, Roofer, Dentist)",
-  "Nice! Roughly how many new customers do you get per month right now?",
-  "What's your #1 goal — more leads, more booked jobs, or better follow-up?",
-  "Last one — what's your name so I can connect you with our team?",
-];
+const GREETING =
+  "Hey 👋 I'm Marvex AI. Quick one — what kind of business are you running?";
 
 export function FloatingActions() {
   const [chatOpen, setChatOpen] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
-  const [step, setStep] = useState(0);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { from: "bot", text: QUESTIONS[0] },
+    { role: "assistant", content: GREETING },
   ]);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setShowSticky(window.scrollY > 600);
@@ -26,34 +23,61 @@ export function FloatingActions() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const finished = step >= QUESTIONS.length;
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages, loading]);
+
+  const answers = useMemo(
+    () => messages.filter((m) => m.role === "user").map((m) => m.content),
+    [messages],
+  );
+  const finished = answers.length >= 3;
 
   const waHref = useMemo(() => {
-    const answers = messages.filter((m) => m.from === "user").map((m) => m.text);
     const summary =
       answers.length > 0
-        ? `Hi Marvex! I'd love to chat.\n\n• Business: ${answers[0] ?? ""}\n• Monthly customers: ${answers[1] ?? ""}\n• Goal: ${answers[2] ?? ""}\n• Name: ${answers[3] ?? ""}`
+        ? `Hi Marvex! I chatted with your AI assistant.\n\n${answers.map((a, i) => `${i + 1}. ${a}`).join("\n")}`
         : "Hi Marvex! I'd love to chat.";
     return `https://wa.me/2348165010990?text=${encodeURIComponent(summary)}`;
-  }, [messages]);
+  }, [answers]);
 
-  const send = () => {
+  const send = async () => {
     const value = input.trim();
-    if (!value || finished) return;
-    const nextStep = step + 1;
-    const next: Msg[] = [...messages, { from: "user", text: value }];
-    if (nextStep < QUESTIONS.length) {
-      next.push({ from: "bot", text: QUESTIONS[nextStep] });
-    } else {
-      next.push({
-        from: "bot",
-        text: "Amazing 🚀 Based on your answers, we can help. Tap below to continue on WhatsApp — 0816 501 0990 — and a strategist will reply within minutes.",
-      });
-    }
+    if (!value || loading) return;
+    const next: Msg[] = [...messages, { role: "user", content: value }];
     setMessages(next);
-    setStep(nextStep);
     setInput("");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: next }),
+      });
+      const data = (await res.json()) as { reply?: string };
+      setMessages([
+        ...next,
+        {
+          role: "assistant",
+          content:
+            data.reply ||
+            "Sorry, I glitched for a second there. Mind saying that again?",
+        },
+      ]);
+    } catch {
+      setMessages([
+        ...next,
+        {
+          role: "assistant",
+          content:
+            "I'm having trouble connecting right now — you can reach us straight on WhatsApp at 0816 501 0990.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   return (
     <>
@@ -79,54 +103,63 @@ export function FloatingActions() {
             </button>
           </div>
 
-          <div className="mt-3 max-h-72 space-y-2 overflow-y-auto pr-1 text-sm">
+          <div ref={scrollRef} className="mt-3 max-h-72 space-y-2 overflow-y-auto pr-1 text-sm">
             {messages.map((m, i) => (
               <div
                 key={i}
                 className={
-                  m.from === "bot"
-                    ? "rounded-xl rounded-tl-sm bg-secondary/60 p-3"
-                    : "ml-8 rounded-xl rounded-tr-sm bg-gradient-brand p-3 text-primary-foreground"
+                  m.role === "assistant"
+                    ? "whitespace-pre-wrap rounded-xl rounded-tl-sm bg-secondary/60 p-3"
+                    : "ml-8 whitespace-pre-wrap rounded-xl rounded-tr-sm bg-gradient-brand p-3 text-primary-foreground"
                 }
               >
-                {m.text}
+                {m.content}
               </div>
             ))}
+            {loading && (
+              <div className="flex items-center gap-1 rounded-xl rounded-tl-sm bg-secondary/60 p-3">
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-accent [animation-delay:-0.2s]" />
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-accent [animation-delay:-0.1s]" />
+                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-accent" />
+              </div>
+            )}
           </div>
 
-          {!finished ? (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                send();
-              }}
-              className="mt-3 flex items-center gap-2"
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              void send();
+            }}
+            className="mt-3 flex items-center gap-2"
+          >
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your message…"
+              aria-label="Your message"
+              className="flex-1 rounded-xl border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-accent"
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              aria-label="Send"
+              className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-brand text-primary-foreground disabled:opacity-50"
             >
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your answer…"
-                aria-label="Your answer"
-                className="flex-1 rounded-xl border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-accent"
-              />
-              <button
-                type="submit"
-                aria-label="Send"
-                className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-brand text-primary-foreground"
-              >
-                <Send className="h-4 w-4" />
-              </button>
-            </form>
-          ) : (
+              <Send className="h-4 w-4" />
+            </button>
+          </form>
+
+          {finished && (
             <a
               href={waHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-2.5 text-sm font-semibold text-primary-foreground"
+              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-2.5 text-sm font-semibold text-primary-foreground"
             >
               Continue on WhatsApp · 0816 501 0990
             </a>
           )}
+
         </div>
       )}
 
