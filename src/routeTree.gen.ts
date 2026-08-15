@@ -25,6 +25,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IndustriesIndexRouteImport } from './routes/industries.index'
 import { Route as IndustriesSlugRouteImport } from './routes/industries.$slug'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -110,6 +111,11 @@ const IndustriesSlugRoute = IndustriesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => IndustriesRoute,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
   Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
     id: '/.well-known/oauth-protected-resource',
@@ -146,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/website-design': typeof WebsiteDesignRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/api/chat': typeof ApiChatRoute
   '/industries/$slug': typeof IndustriesSlugRoute
   '/industries/': typeof IndustriesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -166,6 +173,7 @@ export interface FileRoutesByTo {
   '/website-design': typeof WebsiteDesignRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/api/chat': typeof ApiChatRoute
   '/industries/$slug': typeof IndustriesSlugRoute
   '/industries': typeof IndustriesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -188,6 +196,7 @@ export interface FileRoutesById {
   '/website-design': typeof WebsiteDesignRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/api/chat': typeof ApiChatRoute
   '/industries/$slug': typeof IndustriesSlugRoute
   '/industries/': typeof IndustriesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -211,6 +220,7 @@ export interface FileRouteTypes {
     | '/website-design'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/api/chat'
     | '/industries/$slug'
     | '/industries/'
     | '/.mcp/invoke-tool/$tool'
@@ -231,6 +241,7 @@ export interface FileRouteTypes {
     | '/website-design'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/api/chat'
     | '/industries/$slug'
     | '/industries'
     | '/.mcp/invoke-tool/$tool'
@@ -252,6 +263,7 @@ export interface FileRouteTypes {
     | '/website-design'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/api/chat'
     | '/industries/$slug'
     | '/industries/'
     | '/.mcp/invoke-tool/$tool'
@@ -274,6 +286,7 @@ export interface RootRouteChildren {
   WebsiteDesignRoute: typeof WebsiteDesignRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  ApiChatRoute: typeof ApiChatRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -391,6 +404,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesSlugRouteImport
       parentRoute: typeof IndustriesRoute
     }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.well-known/oauth-protected-resource': {
       id: '/.well-known/oauth-protected-resource'
       path: '/.well-known/oauth-protected-resource'
@@ -447,6 +467,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  ApiChatRoute: ApiChatRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
