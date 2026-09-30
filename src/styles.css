@@ -37,6 +37,11 @@
   --color-brand-teal: var(--brand-teal);
   --color-brand-blue: var(--brand-blue);
   --color-brand-violet: var(--brand-violet);
+  --color-paper: var(--paper);
+  --color-paper-soft: var(--paper-soft);
+  --color-paper-card: var(--paper-card);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
 
   --animate-fade-in: fade-in 0.7s ease-out both;
   --animate-fade-up: fade-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -113,6 +118,13 @@
   --brand-teal: oklch(0.78 0.15 190);
   --brand-violet: oklch(0.62 0.20 290);
 
+  /* Portfolio light sections */
+  --paper: oklch(0.975 0.004 95);
+  --paper-soft: oklch(0.945 0.006 95);
+  --paper-card: oklch(1 0 0);
+  --ink: oklch(0.2 0.015 265);
+  --ink-muted: oklch(0.48 0.02 265);
+
   --gradient-brand: linear-gradient(135deg,
     oklch(0.62 0.20 290) 0%,
     oklch(0.72 0.16 230) 50%,
@@ -178,5 +190,32 @@
       linear-gradient(color-mix(in oklab, white 4%, transparent) 1px, transparent 1px),
       linear-gradient(90deg, color-mix(in oklab, white 4%, transparent) 1px, transparent 1px);
     background-size: 56px 56px;
+  }
+  .grid-bg-ink {
+    background-image:
+      linear-gradient(color-mix(in oklab, var(--ink) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--ink) 6%, transparent) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .shadow-paper {
+    box-shadow: 0 24px 60px -28px oklch(0.2 0.015 265 / 0.28);
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 }

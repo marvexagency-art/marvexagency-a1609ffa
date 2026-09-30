@@ -13,6 +13,7 @@ import { Route as WebsiteDesignRouteImport } from './routes/website-design'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ReputationManagementRouteImport } from './routes/reputation-management'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
@@ -48,6 +49,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const ReputationManagementRoute = ReputationManagementRouteImport.update({
   id: '/reputation-management',
   path: '/reputation-management',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -146,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/how-it-works': typeof HowItWorksRoute
   '/industries': typeof IndustriesRouteWithChildren
   '/mcp': typeof McpRoute
+  '/portfolio': typeof PortfolioRoute
   '/reputation-management': typeof ReputationManagementRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -167,6 +174,7 @@ export interface FileRoutesByTo {
   '/google-business-profile-management': typeof GoogleBusinessProfileManagementRoute
   '/how-it-works': typeof HowItWorksRoute
   '/mcp': typeof McpRoute
+  '/portfolio': typeof PortfolioRoute
   '/reputation-management': typeof ReputationManagementRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -190,6 +198,7 @@ export interface FileRoutesById {
   '/how-it-works': typeof HowItWorksRoute
   '/industries': typeof IndustriesRouteWithChildren
   '/mcp': typeof McpRoute
+  '/portfolio': typeof PortfolioRoute
   '/reputation-management': typeof ReputationManagementRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -214,6 +223,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/industries'
     | '/mcp'
+    | '/portfolio'
     | '/reputation-management'
     | '/services'
     | '/sitemap.xml'
@@ -235,6 +245,7 @@ export interface FileRouteTypes {
     | '/google-business-profile-management'
     | '/how-it-works'
     | '/mcp'
+    | '/portfolio'
     | '/reputation-management'
     | '/services'
     | '/sitemap.xml'
@@ -257,6 +268,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/industries'
     | '/mcp'
+    | '/portfolio'
     | '/reputation-management'
     | '/services'
     | '/sitemap.xml'
@@ -280,6 +292,7 @@ export interface RootRouteChildren {
   HowItWorksRoute: typeof HowItWorksRoute
   IndustriesRoute: typeof IndustriesRouteWithChildren
   McpRoute: typeof McpRoute
+  PortfolioRoute: typeof PortfolioRoute
   ReputationManagementRoute: typeof ReputationManagementRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -318,6 +331,13 @@ declare module '@tanstack/react-router' {
       path: '/reputation-management'
       fullPath: '/reputation-management'
       preLoaderRoute: typeof ReputationManagementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -460,6 +480,7 @@ const rootRouteChildren: RootRouteChildren = {
   HowItWorksRoute: HowItWorksRoute,
   IndustriesRoute: IndustriesRouteWithChildren,
   McpRoute: McpRoute,
+  PortfolioRoute: PortfolioRoute,
   ReputationManagementRoute: ReputationManagementRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

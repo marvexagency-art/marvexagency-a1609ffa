@@ -60,6 +60,7 @@ export function Footer() {
             title="Company"
             links={[
               { to: "/about", label: "About" },
+              { to: "/portfolio", label: "Portfolio" },
               { to: "/how-it-works", label: "How It Works" },
               { to: "/case-studies", label: "Case Studies" },
               { to: "/blog", label: "Resources" },
