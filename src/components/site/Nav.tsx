@@ -5,6 +5,7 @@ import logo from "@/assets/marvex-logo.jpg";
 
 const links = [
   { to: "/services", label: "Services" },
+  { to: "/portfolio", label: "Portfolio" },
   { to: "/industries", label: "Industries" },
   { to: "/how-it-works", label: "How It Works" },
   { to: "/case-studies", label: "Case Studies" },
